@@ -8,17 +8,17 @@
 <meta name="description" content="Local-first personal finance management system. Your data never leaves this device.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Ledger CFO">
+<meta name="apple-mobile-web-app-title" content="Vishnu Tracker">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" href="icon-192.png">
-<title>Ledger CFO</title>
+<link rel="apple-touch-icon" href="icon192.png">
+<link rel="icon" href="icon192.png">
+<title>Vishnu Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
 /* ============================================================
-   LEDGER CFO — design tokens
+   VISHNU TRACKER — design tokens
    Palette: warm plum ink accent on faintly plum-biased paper,
    with semantic traffic colours kept deliberately separate.
    Type: Newsreader (display) / IBM Plex Sans (UI) / IBM Plex Mono (figures)
@@ -452,7 +452,7 @@ pre.ctx{background:var(--surface-2);border:1px solid var(--border);border-radius
 <div id="app">
   <header class="topbar">
     <div style="flex:1;min-width:0">
-      <div class="topbar-sub" id="topSub">Personal CFO</div>
+      <div class="topbar-sub" id="topSub">Vishnu Tracker</div>
       <div class="topbar-title" id="topTitle">Dashboard</div>
     </div>
     <button class="icon-btn" id="btnSearch" aria-label="Search everything">
@@ -499,11 +499,11 @@ pre.ctx{background:var(--surface-2);border:1px solid var(--border);border-radius
 <script>
 /* ===== 03-core.js ===== */
 /* ============================================================================
-   LEDGER CFO — Personal Finance Management System
+   VISHNU TRACKER — Personal Finance Management System
    Version 1.0 — local-first. All data lives in this browser's IndexedDB.
    Nothing is uploaded anywhere. No API keys. No network calls at runtime.
    ========================================================================== */
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 const DB_NAME = 'ledger-cfo';
 const DB_VERSION = 1;
 const BACKUP_VERSION = '1.0';
@@ -1873,7 +1873,7 @@ const UI = { route:'dashboard', ym: currentYM(), year: String(new Date().getFull
              txFilter:{ q:'', cat:'all', pay:'all', sort:'date' }, reportTab:'monthly', search:'' };
 
 const NAV_TITLES = {
-  dashboard:['Personal CFO','Dashboard'], transactions:['Ledger','Activity'], budget:['Plan','Budget & limits'],
+  dashboard:['Vishnu Tracker','Dashboard'], transactions:['Ledger','Activity'], budget:['Plan','Budget & limits'],
   reports:['Analysis','Reports'], more:['Everything else','More'], income:['Ledger','Income'],
   investments:['Portfolio','Investments'], balance:['Position','Balance sheet'], loans:['Debt','Loans & EMI'],
   subscriptions:['Recurring','Subscriptions'], bills:['Upcoming','Bills'], goals:['Targets','Savings goals'],
@@ -2858,7 +2858,7 @@ function screenMore() {
         ${moreCard('⚙️','Settings','Preferences','settings')}
       </div>
     </div>
-    <div class="help" style="text-align:center;padding:6px 0 0">Ledger CFO ${APP_VERSION} · everything stays on this device</div>
+    <div class="help" style="text-align:center;padding:6px 0 0">Vishnu Tracker ${APP_VERSION} · everything stays on this device</div>
   </div>`;
 }
 
@@ -2909,7 +2909,7 @@ function screenSettings() {
       <div class="kv"><span>Transactions</span><b>${S.expenses.length + S.income.length}</b></div>
       <div class="kv"><span>Last backup</span><b>${PREFS.lastBackupAt ? dateLabel(PREFS.lastBackupAt.slice(0, 10)) : 'Never'}</b></div>
     </div>
-    <div class="disclaim">Ledger CFO stores everything in this browser on this device. It makes no network calls, holds no API keys, and sends nothing anywhere. The only way data leaves is when you export it yourself.</div>
+    <div class="disclaim">Vishnu Tracker stores everything in this browser on this device. It makes no network calls, holds no API keys, and sends nothing anywhere. The only way data leaves is when you export it yourself.</div>
   </div>`;
 }
 function removePreset(i) { PREFS.presets.splice(i, 1); savePrefs(); render(); }
@@ -3247,16 +3247,16 @@ function buildContext(scope) {
 }
 function contextPrompt() {
   const txt = JSON.stringify(buildContext(UI.ctxScope || 'month'), null, 2);
-  return `Here is my financial data from Ledger CFO. Answer only from these figures — do not estimate or invent anything, and say so plainly if something is not here.\n\n\`\`\`json\n${txt}\n\`\`\`\n\nMy question: `;
+  return `Here is my financial data from Vishnu Tracker. Answer only from these figures — do not estimate or invent anything, and say so plainly if something is not here.\n\n\`\`\`json\n${txt}\n\`\`\`\n\nMy question: `;
 }
 async function copyContext() {
   const prompt = contextPrompt();
   try { await navigator.clipboard.writeText(prompt); toast('Copied. Paste it into Cowork with your question.'); }
-  catch { showRawFallback(`ledger-context-${UI.ctxScope || 'month'}.txt`, prompt); }
+  catch { showRawFallback(`vishnu-tracker-context-${UI.ctxScope || 'month'}.txt`, prompt); }
 }
 async function downloadContext() {
   const scope = UI.ctxScope || 'month';
-  await download(`ledger-context-${scope}-${todayISO()}.json`, JSON.stringify(buildContext(scope), null, 2), 'application/json');
+  await download(`vishnu-tracker-context-${scope}-${todayISO()}.json`, JSON.stringify(buildContext(scope), null, 2), 'application/json');
 }
 
 /* ==========================================================================
@@ -3339,13 +3339,13 @@ function buildBackup() {
 
 async function doBackup() {
   const b = buildBackup();
-  const saved = await download(`ledger-cfo-backup-${todayISO()}.json`, JSON.stringify(b, null, 2));
+  const saved = await download(`vishnu-tracker-backup-${todayISO()}.json`, JSON.stringify(b, null, 2));
   if (saved) { PREFS.lastBackupAt = b.createdAt; savePrefs(); render(); }
 }
 
 function validateBackup(obj) {
   if (!obj || typeof obj !== 'object') return 'That file is not readable as a backup.';
-  if (!obj.backupVersion) return 'No backup version found — this does not look like a Ledger CFO backup.';
+  if (!obj.backupVersion) return 'No backup version found — this does not look like a Vishnu Tracker backup.';
   if (!obj.data || typeof obj.data !== 'object') return 'The backup has no data section.';
   const major = String(obj.backupVersion).split('.')[0];
   if (+major > +BACKUP_VERSION.split('.')[0]) return `This backup was made by a newer version (${obj.backupVersion}). Update the app before restoring.`;
@@ -3422,7 +3422,7 @@ async function exportCSV() {
     ...S.expenses.map(e => [e.date,'Expense',catLabel(e.category),e.subcategory,e.description,e.amount,e.paymentMethod,e.recurring ? 'Yes' : 'No',e.notes]),
     ...S.income.map(i => [i.date,'Income',i.type,'',i.source,i.amount,'','',i.notes]),
   ].sort((a, b) => String(a[0]).localeCompare(String(b[0])));
-  await download(`ledger-cfo-transactions-${todayISO()}.csv`, [head, ...rows].map(r => r.map(q).join(',')).join('\n'), 'text/csv');
+  await download(`vishnu-tracker-transactions-${todayISO()}.csv`, [head, ...rows].map(r => r.map(q).join(',')).join('\n'), 'text/csv');
 }
 
 async function exportReport(kind, key, format) {
@@ -3431,8 +3431,8 @@ async function exportReport(kind, key, format) {
     const ym = key, m = monthStats(ym);
     obj = { report:'monthly', month: ym, ...m, byCategory: categoryBreakdown(ym), cashFlow: cashFlow(ym),
             largestExpenses: inYM(S.expenses, ym).slice().sort((a, b) => b.amount - a.amount).slice(0, 10) };
-    name = `ledger-monthly-${ym}`;
-    text = `LEDGER CFO — ${ymLabel(ym)}\n${'='.repeat(34)}\n`
+    name = `vishnu-tracker-monthly-${ym}`;
+    text = `VISHNU TRACKER — ${ymLabel(ym)}\n${'='.repeat(34)}\n`
       + `Income            ${money(m.income)}\nExpenses          ${money(m.expenses)}\nSaved             ${money(m.savings)}\n`
       + `Savings rate      ${pctStr(m.savingsRate)}\nBudget            ${m.budget ? money(m.budget) + ' (' + pctStr(m.budgetUsed, 0) + ' used)' : 'not set'}\n`
       + `Investments       ${money(m.investOut)}\nDebt payments     ${money(m.debtOut)}\nEntries           ${m.txCount}\n\nBY CATEGORY\n`
@@ -3442,14 +3442,14 @@ async function exportReport(kind, key, format) {
     const stats = q.map(mn => monthStats(`${y}-${pad2(mn)}`));
     const income = sum(stats, s => s.income), expenses = sum(stats, s => s.expenses);
     obj = { report:'quarterly', quarter:key, income, expenses, savings: income - expenses, months: stats };
-    name = `ledger-${key}`;
-    text = `LEDGER CFO — Q${qs} ${y}\n${'='.repeat(24)}\nIncome    ${money(income)}\nExpenses  ${money(expenses)}\nSaved     ${money(income - expenses)}\nRate      ${pctStr(pct(income - expenses, income))}`;
+    name = `vishnu-tracker-${key}`;
+    text = `VISHNU TRACKER — Q${qs} ${y}\n${'='.repeat(24)}\nIncome    ${money(income)}\nExpenses  ${money(expenses)}\nSaved     ${money(income - expenses)}\nRate      ${pctStr(pct(income - expenses, income))}`;
   } else {
     const y = key, a = annualStatement(y), er = annualExpenseReport(y), nw = netWorthHistory(y);
     obj = { report:'annual', year: y, totals: { income:a.totalIncome, expenses:a.totalExpenses, savings:a.savings, savingsRate:a.savingsRate },
             months: a.rows.filter(r => r.hasData), byCategory: er.rows, netWorth: nw };
-    name = `ledger-annual-${y}`;
-    text = `LEDGER CFO — ANNUAL REVIEW ${y}\n${'='.repeat(34)}\n`
+    name = `vishnu-tracker-annual-${y}`;
+    text = `VISHNU TRACKER — ANNUAL REVIEW ${y}\n${'='.repeat(34)}\n`
       + `Total income      ${money(a.totalIncome)}\nTotal expenses    ${money(a.totalExpenses)}\nTotal saved       ${money(a.savings)}\n`
       + `Savings rate      ${pctStr(a.savingsRate)}\nAvg monthly in    ${money(a.avgIncome)}\nAvg monthly out   ${money(a.avgExpenses)}\n`
       + `Net worth start   ${nw.snaps.length ? money(nw.start) : 'not recorded'}\nNet worth end     ${nw.snaps.length ? money(nw.end) : 'not recorded'}\n\nMONTHS\n`

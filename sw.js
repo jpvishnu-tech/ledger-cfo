@@ -1,7 +1,7 @@
-/* Ledger CFO service worker — app shell caching only.
+/* Vishnu Tracker service worker — app shell caching only.
    Financial data lives in IndexedDB and is never cached, synced or transmitted. */
-const CACHE = 'ledger-cfo-v1.0.0';
-const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const CACHE = 'vishnu-tracker-v1.0.1';
+const SHELL = ['./', './index.html', './manifest.json', './icon192.png', './icon512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
